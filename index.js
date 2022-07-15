@@ -16,7 +16,7 @@ let mandRole = [];
 
 const raidenColour = 'DARK_PURPLE';
 const successEmoji = "<a:bot_success:522080656604397591>";
-//const loadingEmoji = "<a:bot_loading:519963254206889994>";
+const alertEmoji = "<a:bot_alert:997448756398129222>";
 const warningEmoji = "<:bot_warning:994288250858508369>";
 
 client.once("ready", () => {
@@ -110,11 +110,15 @@ client.on("interactionCreate", async(intr) => {
         const helpEmbed = new MessageEmbed()
             .setColor(`${raidenColour}`)
             .setThumbnail(`${client.user.displayAvatarURL()}`)
-            .setTitle(`Guida all'utilizzo di ${client.user.username} Bot.`)
-            .setDescription('Versione 1.0')
-            .setTimestamp()
+            .setTitle(`Guida all'utilizzo di ${client.user.username}.`)
+            .setDescription('Esegui i seguenti passaggi per settare il bot:')
+            .addFields(
+                {name: `${alertEmoji} /setup`, value: 'Con il comando /setup selezionerai il Ruolo Target ed il canale dei log.'},
+                {name: `${alertEmoji} /mandatoryroles`, value: `Selezionerai i ruoli obbligatori che l'utente dovrà avere.`},
+                {name: `${successEmoji} Fine!`, value: `Il bot è pronto per l'utilizzo.`},
+            )
             .setFooter(
-                {text: `Developed with ❤️ by ${selfProfile.tag}`,
+                {text: `v1.0 | Developed with ❤️ by ${selfProfile.tag}`,
                 iconURL: `${selfProfile.displayAvatarURL()}`}
             )
 
