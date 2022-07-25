@@ -72,7 +72,7 @@ module.exports = {
 
             const kickEmbed = new EmbedBuilder()
                     .setColor('Red')
-                    .setTitle(`Sei stato/a kickato da ${newMember.guild.name} :\(`)
+                    .setTitle(`Sei stato/a kickato da ${member.guild.name} :\(`)
                     .setDescription('Se pensi che si tratti di un errore contattaci.')
                     .setTimestamp()
 
@@ -80,7 +80,7 @@ module.exports = {
                 mandRole.forEach(find => {
                     if(!member.roles.cache.some(r => r.id === find.id)) {
                         member.send({embeds: [kickEmbed]})
-                            .catch(() => logChannel.send({embeds: [dmErrorEmbed2]}));
+                            .catch(() => logChannel.send({embeds: [dmErrorEmbed2]}));   // Causes issues (multiple logs)
                         member.kick('User failed to pick mandatory roles.');
                     }
                 })
