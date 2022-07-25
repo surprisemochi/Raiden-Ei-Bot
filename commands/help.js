@@ -9,8 +9,8 @@ module.exports = {
     async execute(interaction) {
         const helpEmbed = new EmbedBuilder()
             .setColor(`${raidenColour}`)
-            .setThumbnail(`${client.user.displayAvatarURL()}`)
-            .setTitle(`Guida all'utilizzo di ${client.user.username}.`)
+            .setThumbnail(`${interaction.client.user.displayAvatarURL()}`)
+            .setTitle(`Guida all'utilizzo di ${interaction.client.user.username}.`)
             .setDescription('Esegui i seguenti passaggi per settare il bot:')
             .addFields(
                 {name: `${alertEmoji} /setup`, value: 'Con il comando /setup selezionerai il Ruolo Target ed il canale dei log.'},
