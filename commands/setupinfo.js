@@ -1,15 +1,12 @@
-const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
-    // name: 'setupinfo',
-    // data: {
-    //     name: "setupinfo",
-    //     description: "Ruolo target e Canale log corrente."
-    // },
 
     data: new SlashCommandBuilder()
         .setName('setupinfo')
-        .setDescription('Ruolo target e Canale log corrente.'),
+        .setDescription('Ruolo target e Canale log corrente.')
+        .setDMPermission(false)
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
 
     async execute(interaction) {
         if(global.targetRole == null || global.logChannel == null) return interaction.reply(

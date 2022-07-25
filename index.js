@@ -15,6 +15,7 @@ global.client = new Client({ intents: [
     GatewayIntentBits.GuildMembers,
 ]});
 
+// Reading from folder.
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -29,7 +30,7 @@ for (const file of commandFiles) {
 global.targetRole, global.logChannel, global.kickTime = null;
 global.mandRole = [];
 
-global.raidenColour = 'DARK_PURPLE';
+global.raidenColour = 'DarkPurple';
 global.successEmoji = "<a:bot_success:522080656604397591>";
 global.alertEmoji = "<a:bot_alert:997448756398129222>";
 global.warningEmoji = "<:bot_warning:994288250858508369>";
@@ -37,7 +38,7 @@ global.warningEmoji = "<:bot_warning:994288250858508369>";
 // Returns the log embed to use further in the code.
 function kickLogCreate(member) {
     const log = new EmbedBuilder()
-        .setColor(`${raidenColour}`)
+        .setColor('Red')
         .setTitle('Membro kickato')
         .setAuthor({
             name: `${member.user.tag}`,
@@ -55,7 +56,7 @@ function kickLogCreate(member) {
 
 function dmErrorCreate(member) {
     const dmLog = new EmbedBuilder()
-        .setColor('YELLOW')
+        .setColor('Yellow')
         .setTitle(`${warningEmoji} Impossibile inviare DM a ${member.tag}`)
         .setAuthor({
             name: `${member.user.tag}`,
@@ -71,6 +72,7 @@ function dmErrorCreate(member) {
     return dmLog;
 }
 
+// Logging the client
 client.once("ready", () => {
     console.log(`Logged in as ${client.user.tag}.`);
     client.user.setActivity('la chat', { type: ActivityType.Watching });
@@ -111,7 +113,7 @@ client.on("guildMemberUpdate", function(oldMember, newMember) {
     if(!oldMember.roles.cache.has(targetRole.id) && newMember.roles.cache.has(targetRole.id)){
         if(!newMember.kickable) {
             const kickError = new EmbedBuilder()
-                .setColor('RED')
+                .setColor('Red')
                 .setTitle(`${warningEmoji} Impossibile kickare ${newMember.user.tag}`)
                 .setDescription(`${reason}`)
                 .setThumbnail(`${newMember.user.displayAvatarURL()}`)
@@ -134,7 +136,7 @@ client.on("guildMemberUpdate", function(oldMember, newMember) {
             }
 
             const kickNoticeEmbed = new EmbedBuilder()
-                .setColor('YELLOW')
+                .setColor('Yellow')
                 .setTitle(`${warningEmoji} Ops! Il nostro team ha rilevato un problema...`)
                 .setDescription(`Pare che tu abbia selezionato il ruolo 17-.\n` +
                 `Putroppo il server è strettamente 18+, ci scusiamo per il disagio!`)
@@ -147,7 +149,7 @@ client.on("guildMemberUpdate", function(oldMember, newMember) {
                 .catch(() => logChannel.send({embeds: [dmErrorEmbed]}));
 
             const kickEmbed = new EmbedBuilder()
-                .setColor('RED')
+                .setColor('Red')
                 .setTitle(`Sei stato/a kickato da ${newMember.guild.name} :\(`)
                 .setDescription(' Se pensi che si tratti di un errore contattaci.')
                 .setTimestamp()
@@ -199,7 +201,7 @@ client.on("guildMemberAdd", member => {
     if(hasRole == false) {
         
         const mandRolesEmbed = new EmbedBuilder()
-            .setColor('YELLOW')
+            .setColor('Yellow')
             .setTitle(`${warningEmoji} Non hai selezionato i ruoli obbligatori!`)
             .setDescription(`Per selezionare i ruoli recati nell'apposito canale.`)
             .setTimestamp()

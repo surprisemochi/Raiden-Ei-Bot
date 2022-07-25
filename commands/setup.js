@@ -1,7 +1,7 @@
-const { EmbedBuilder, SlashCommandBuilder, ChannelType } = require('discord.js');
+const { EmbedBuilder, SlashCommandBuilder, ChannelType, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
-
+    
     data: new SlashCommandBuilder()
         .setName('setup')
         .setDescription('Per selezionare il ruolo target.')
@@ -18,7 +18,9 @@ module.exports = {
         .addNumberOption(option =>
             option.setName('kicktime')
                 .setDescription('Il countdown per il kick (in minuti)')    
-        ),
+        )
+        .setDMPermission(false)
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
 
     async execute(interaction) {
         if(!interaction.member.permissions.has("MANAGE_GUILD")) {

@@ -1,4 +1,4 @@
-const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
 
@@ -29,7 +29,9 @@ module.exports = {
             option.setName('ruolo5')
                 .setDescription('Il ruolo obbligatorio #5')
                 .setRequired(true)
-        ),
+        )
+        .setDMPermission(false)
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
 
     async execute(interaction) {
         // Pre-increment because of the Option's names. (See interaction).
