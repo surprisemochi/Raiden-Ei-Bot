@@ -1,43 +1,6 @@
-const { MessageEmbed, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
-    // name: 'mandatoryroles',
-    // data: {
-    //     name: "mandatoryroles",
-    //     description: "Per settare i ruoli obbligatori.",
-    //     options: [
-    //         {
-    //             name: "ruolo1",
-    //             description: "Il ruolo obbligatorio #1",
-    //             type: "ROLE",
-    //             required: true
-    //         },
-    //         {
-    //             name: "ruolo2",
-    //             description: "Il ruolo obbligatorio #2",
-    //             type: "ROLE",
-    //             required: true
-    //         },
-    //         {
-    //             name: "ruolo3",
-    //             description: "Il ruolo obbligatorio #3",
-    //             type: "ROLE",
-    //             required: true
-    //         },
-    //         {
-    //             name: "ruolo4",
-    //             description: "Il ruolo obbligatorio #4",
-    //             type: "ROLE",
-    //             required: true
-    //         },
-    //         {
-    //             name: "ruolo5",
-    //             description: "Il ruolo obbligatorio #5",
-    //             type: "ROLE",
-    //             required: true
-    //         },
-    //     ]
-    // },
 
     data: new SlashCommandBuilder()
         .setName('mandatoryroles')
@@ -77,10 +40,12 @@ module.exports = {
             console.log(`${mandRole[i]} | index: ${i}\n`);
         }
 
-        const mandRoleEmbed = new MessageEmbed()
+        const mandRoleEmbed = new EmbedBuilder()
             .setColor(`${raidenColour}`)
             .setTitle(`${successEmoji} Fatto!`)
-            .addField('Ruoli Obbligatori:', `${mandRole[0]}\n${mandRole[1]}\n${mandRole[2]}\n${mandRole[3]}\n${mandRole[4]}\n`)
+            .addFields(
+                {name: 'Ruoli Obbligatori:', value: `${mandRole[0]}\n${mandRole[1]}\n${mandRole[2]}\n${mandRole[3]}\n${mandRole[4]}\n`}
+            )
             .setTimestamp()
             .setFooter(
                 {text: `Developed with ❤️ by ${selfProfile.tag}`,

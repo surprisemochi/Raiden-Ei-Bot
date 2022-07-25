@@ -3,7 +3,7 @@
 *   Developed with love by Sofia (surprisemochi#1708)
 */
 
-const { Client, GatewayIntentBits, MessageEmbed, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, EmbedBuilder, Collection, ActivityType } = require('discord.js');
 const { token } = require('./config.json');
 const fs = require('fs');
 const path = require('node:path');
@@ -36,7 +36,7 @@ global.warningEmoji = "<:bot_warning:994288250858508369>";
 
 // Returns the log embed to use further in the code.
 function kickLogCreate(member) {
-    const log = new MessageEmbed()
+    const log = new EmbedBuilder()
         .setColor(`${raidenColour}`)
         .setTitle('Membro kickato')
         .setAuthor({
@@ -54,7 +54,7 @@ function kickLogCreate(member) {
 }
 
 function dmErrorCreate(member) {
-    const dmLog = new MessageEmbed()
+    const dmLog = new EmbedBuilder()
         .setColor('YELLOW')
         .setTitle(`${warningEmoji} Impossibile inviare DM a ${member.tag}`)
         .setAuthor({
@@ -73,7 +73,7 @@ function dmErrorCreate(member) {
 
 client.once("ready", () => {
     console.log(`Logged in as ${client.user.tag}.`);
-    client.user.setActivity('la chat', { type: 'WATCHING' });
+    client.user.setActivity('la chat', { type: ActivityType.Watching });
 });
 
 // Command handler.
@@ -110,7 +110,7 @@ client.on("guildMemberUpdate", function(oldMember, newMember) {
     // When the targeted role gets selected
     if(!oldMember.roles.cache.has(targetRole.id) && newMember.roles.cache.has(targetRole.id)){
         if(!newMember.kickable) {
-            const kickError = new MessageEmbed()
+            const kickError = new EmbedBuilder()
                 .setColor('RED')
                 .setTitle(`${warningEmoji} Impossibile kickare ${newMember.user.tag}`)
                 .setDescription(`${reason}`)
@@ -133,7 +133,7 @@ client.on("guildMemberUpdate", function(oldMember, newMember) {
                 min = "minuti";
             }
 
-            const kickNoticeEmbed = new MessageEmbed()
+            const kickNoticeEmbed = new EmbedBuilder()
                 .setColor('YELLOW')
                 .setTitle(`${warningEmoji} Ops! Il nostro team ha rilevato un problema...`)
                 .setDescription(`Pare che tu abbia selezionato il ruolo 17-.\n` +
@@ -146,13 +146,13 @@ client.on("guildMemberUpdate", function(oldMember, newMember) {
             newMember.send({embeds: [kickNoticeEmbed]})
                 .catch(() => logChannel.send({embeds: [dmErrorEmbed]}));
 
-            const kickEmbed = new MessageEmbed()
+            const kickEmbed = new EmbedBuilder()
                 .setColor('RED')
                 .setTitle(`Sei stato/a kickato da ${newMember.guild.name} :\(`)
                 .setDescription(' Se pensi che si tratti di un errore contattaci.')
                 .setTimestamp()
             
-            // const kickLog = new MessageEmbed()
+            // const kickLog = new EmbedBuilder()
             //     .setColor(`${raidenColour}`)
             //     .setTitle('Membro kickato')
             //     .setAuthor({
@@ -198,7 +198,7 @@ client.on("guildMemberAdd", member => {
     // If the member does not have one of the mandatory roles: send notice.
     if(hasRole == false) {
         
-        const mandRolesEmbed = new MessageEmbed()
+        const mandRolesEmbed = new EmbedBuilder()
             .setColor('YELLOW')
             .setTitle(`${warningEmoji} Non hai selezionato i ruoli obbligatori!`)
             .setDescription(`Per selezionare i ruoli recati nell'apposito canale.`)

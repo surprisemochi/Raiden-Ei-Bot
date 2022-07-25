@@ -1,4 +1,4 @@
-const { MessageEmbed, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     // name: 'setupinfo',
@@ -16,7 +16,7 @@ module.exports = {
             {content: `${warningEmoji} **| Ruolo Target e/o Canale Log non settati, hai eseguito /setup?**`, ephemeral: true}
         );
 
-        const setInfoEmbed = new MessageEmbed()
+        const setInfoEmbed = new EmbedBuilder()
             .setColor(`${raidenColour}`)
             .setTitle(`Setup corrente:`)
             .addFields(

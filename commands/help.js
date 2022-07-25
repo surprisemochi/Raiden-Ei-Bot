@@ -1,18 +1,13 @@
-const { MessageEmbed, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
-    // name: 'help',
-    // data: {
-    //     name: "help",
-    //     description: "Informazioni sul bot ed il suo funzionamento."
-    // },
 
     data: new SlashCommandBuilder()
         .setName('help')
         .setDescription('Informazioni sul bot ed il suo funzionamento.'),
 
     async execute(interaction) {
-        const helpEmbed = new MessageEmbed()
+        const helpEmbed = new EmbedBuilder()
             .setColor(`${raidenColour}`)
             .setThumbnail(`${client.user.displayAvatarURL()}`)
             .setTitle(`Guida all'utilizzo di ${client.user.username}.`)

@@ -1,31 +1,6 @@
-const { MessageEmbed, SlashCommandBuilder } = require('discord.js');
+const { EmbedBuilder, SlashCommandBuilder, ChannelType } = require('discord.js');
 
 module.exports = {
-    // name: 'setup',
-    // data: {
-    //     name: "setup",
-    //     description: "Per selezionare il ruolo target.",
-    //     options: [
-    //         {
-    //             name: "target",
-    //             description: "L'id del ruolo target",
-    //             type: "ROLE",
-    //             required: true
-    //         },
-    //         {
-    //             name: "canale",
-    //             description: "Il canale dove il bot invierà i log.",
-    //             type: "CHANNEL",
-    //             required: true
-    //         },
-    //         {
-    //             name: "kicktime",
-    //             description: "Il countdown per il kick (in minuti)",
-    //             type: "NUMBER",
-    //             required: false
-    //         }
-    //     ]
-    // },
 
     data: new SlashCommandBuilder()
         .setName('setup')
@@ -57,11 +32,11 @@ module.exports = {
         // Default kick time: 1 minute.
         if(kickTime == null || kickTime <= 0) kickTime = 60000;
 
-        if(logChannel.type !== "GUILD_TEXT") return interaction.reply(
+        if(logChannel.type !== ChannelType.GuildText) return interaction.reply(
             {content: `${warningEmoji} **| ${logChannel} non è un canale testuale, riprova.**`, ephemeral: true}
         );
 
-        const setupEmbed = new MessageEmbed()
+        const setupEmbed = new EmbedBuilder()
             .setColor(`${raidenColour}`)
             .setTitle(`${successEmoji} Fatto!`)
             .addFields(
