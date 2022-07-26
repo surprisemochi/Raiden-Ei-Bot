@@ -15,7 +15,7 @@ const client = new Client({ intents: [
     GatewayIntentBits.GuildMembers,
 ]});
 
-// Reading from folder.
+// Reading commands from folder.
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -26,16 +26,18 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
-// Global variables used throughout the program.
-global.targetRole, global.logChannel, global.kickTime = null;
-global.mandRole = new Array();
+// Reading buttons from folder.
+client.buttons = new Collection();
+const buttonsPath = path.join(__dirname, 'buttons');
+const buttonFiles = fs.readdirSync(buttonsPath).filter(file => file.endsWith('.js'));
 
-global.raidenColour = 'DarkPurple';
-global.successEmoji = "<a:bot_success:522080656604397591>";
-global.alertEmoji = "<a:bot_alert:997448756398129222>";
-global.warningEmoji = "<:bot_warning:994288250858508369>";
+for (const file of buttonFiles) {
+	const filePath = path.join(buttonsPath, file);
+	const button = require(filePath);
+	client.buttons.set(button.data.name, button);
+}
 
-// Event handler.
+// Reading events from folder.
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
@@ -48,5 +50,14 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
+
+// Global variables used throughout the program.
+global.targetRole, global.logChannel, global.kickTime = null;
+global.mandRole = new Array();
+
+global.raidenColour = 'DarkPurple';
+global.successEmoji = "<a:bot_success:522080656604397591>";
+global.alertEmoji = "<a:bot_alert:997448756398129222>";
+global.warningEmoji = "<:bot_warning:994288250858508369>";
 
 client.login(token);
