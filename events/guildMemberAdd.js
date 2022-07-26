@@ -42,7 +42,7 @@ module.exports = {
     execute(member) {
         // If the new member is a bot, ignore.
         if(member.user.bot) return;
-        if(logChannel == null) return;
+        if(global.logChannel == null) return;
 
         let hasRole = false;
         mandRole.forEach(findRole => {

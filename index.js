@@ -28,7 +28,7 @@ for (const file of commandFiles) {
 
 // Global variables used throughout the program.
 global.targetRole, global.logChannel, global.kickTime = null;
-global.mandRole = [];
+global.mandRole = new Array();
 
 global.raidenColour = 'DarkPurple';
 global.successEmoji = "<a:bot_success:522080656604397591>";

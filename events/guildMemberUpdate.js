@@ -41,7 +41,7 @@ module.exports = {
     name: 'guildMemberUpdate',
 
     execute(oldMember, newMember) {
-        if(targetRole == null) return console.error('Target not set. MemberUpdate ignored.');
+        if(global.targetRole == null) return console.error('Target not set. MemberUpdate ignored.');
 
         // Setting the reason
         let reason;
