@@ -13,7 +13,7 @@ module.exports = {
         )
         .addSubcommand(subcommand =>
             subcommand
-                .setName('mandatory-roles')
+                .setName('no-mandatory-roles')
                 .setDescription('Ricerca gli utenti che non hanno selezionato i ruoli obbligatori. (Pulizia facoltativa)')
         )
         .setDMPermission(false)
@@ -27,25 +27,38 @@ module.exports = {
                     {content: `${global.warningEmoji} **| Ruoli non settati correttamente.**`, ephemeral: true} );
             }
 
-            let memberNumber = 0;
-            
+            let userNumber = 0;
+            let hasMandRole = false;
+            let kickList = new Array()
+
             // Checks the number of members that have the target role / do not have the mandatory roles.
             if(interaction.options.getSubcommand() === 'target-role') {
-                targetRole.members.forEach(() => {
-                    memberNumber++;
+                targetRole.members.forEach(user => {
+                    kickList.push(user);
+                    userNumber++;
                 })
             } else {
+                
+                // TO FIX
                 mandRole.forEach(find => {
-                    find.members.forEach(() => {
-                        memberNumber++;
+                    find.members.forEach(user => {
+                        if(user.roles.cache.some(role => role.id === find.id)) {
+                            //hasMandRole = true;
+                        }
                     })
+
+                    // if(hasMandRole == false) {
+                    //     //kickList.push(user);    //undefined
+                    //     userNumber++;
+                    // }
                 })
             }
+            console.log(kickList);
 
             const searchEmbed = new EmbedBuilder()
                 .setColor(`${raidenColour}`)
-                .setTitle(`${memberNumber} Corrispondenze.`)
-                .setDescription(`Sono state trovate **${memberNumber}** corrispondenze per \`${interaction.options.getSubcommand()}\`.`)
+                .setTitle(`${userNumber} Corrispondenze.`)
+                .setDescription(`Sono state trovate **${userNumber}** corrispondenze per \`${interaction.options.getSubcommand()}\`.`)
                 .setFooter({text: '⚠️ Procedere alla pulizia dei membri?'})
                 .setTimestamp()
 

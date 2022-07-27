@@ -1,19 +1,24 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+//const { kickList } = require('../commands/search');
 
 module.exports = {
     data: {name: 'memberPruneButton'},
 
     execute(interaction) {
-        
-        const embed = new EmbedBuilder()
-            .setTitle('test')
+
+        // ADD KICK
+
+        const replyEmbed = new EmbedBuilder()
+            .setColor('Green')
+            .setTitle(`${successEmoji} Fatto!`)
+            .setDescription('Pulizia dei membri effettuata con successo.')
+            .setTimestamp()
 
         const row = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setCustomId('done')
                     .setLabel('Fatto!')
-                    .setEmoji('😀')
                     .setStyle(ButtonStyle.Success)
                     .setDisabled(true)
             )
@@ -25,6 +30,6 @@ module.exports = {
                     .setDisabled(true)
             );
 
-        interaction.reply({embeds: [embed], components: [row], ephemeral: true});
+        interaction.update({embeds: [replyEmbed], components: [row], ephemeral: true});
     }
 }

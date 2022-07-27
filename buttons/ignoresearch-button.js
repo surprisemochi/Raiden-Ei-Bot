@@ -1,13 +1,16 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: {name: 'ignoreButton'},
 
     execute(interaction) {
-        
-        const embed = new EmbedBuilder()
-            .setTitle('test')
 
+        const ignoreEmbed = new EmbedBuilder()
+            .setColor('Greyple')
+            .setTitle(`${successEmoji} Interazione ignorata.`)
+            .setDescription("L'interazione è stata ignorata e non è stata effettuata alcuna modifica.")
+            .setTimestamp()
+        
         const row = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
@@ -25,6 +28,6 @@ module.exports = {
                     .setDisabled(true)
             );
 
-        interaction.reply({embeds: [embed], components: [row], ephemeral: true});
+        interaction.update({embeds: [ignoreEmbed], components: [row], ephemeral: true});
     }
 }
