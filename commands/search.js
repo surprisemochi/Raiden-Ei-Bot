@@ -28,32 +28,43 @@ module.exports = {
             }
 
             let userNumber = 0;
-            let hasMandRole = false;
-            let kickList = new Array()
+            global.kickList = new Array()
+            let hasRoleList = new Array();
 
             // Checks the number of members that have the target role / do not have the mandatory roles.
             if(interaction.options.getSubcommand() === 'target-role') {
+
                 targetRole.members.forEach(user => {
-                    kickList.push(user);
-                    userNumber++;
+                    if(!user.user.bot) {
+                        kickList.push(user);
+                        userNumber++;
+                    }
                 })
+
             } else {
                 
-                // TO FIX
-                mandRole.forEach(find => {
-                    find.members.forEach(user => {
-                        if(user.roles.cache.some(role => role.id === find.id)) {
-                            //hasMandRole = true;
+                // Fetching all the guild members and then removing the bots.
+                let fetchMembers = await interaction.guild.members.fetch();
+                fetchMembers = fetchMembers.filter(member => !member.user.bot);
+
+                // Pushes in the hasRoleList array that cointains all the users that have the mandatory roles.
+                mandRole.forEach(role => {
+                    role.members.forEach(user => {
+                        if(!user.user.bot) {
+                            if(user.roles.cache.some(rl => rl.id === role.id)) {
+                                hasRoleList.push(user);
+                            }
                         }
                     })
-
-                    // if(hasMandRole == false) {
-                    //     //kickList.push(user);    //undefined
-                    //     userNumber++;
-                    // }
                 })
+                
+                /* Creates a Set of the members with mandatory roles and removes them from the kickList array.
+                   Now kickList contains only the remaining members that have to be kicked. */
+                const usersToDelete = new Set(hasRoleList);
+
+                kickList = fetchMembers.filter(user => !usersToDelete.has(user));
+                userNumber = kickList.size;
             }
-            console.log(kickList);
 
             const searchEmbed = new EmbedBuilder()
                 .setColor(`${raidenColour}`)

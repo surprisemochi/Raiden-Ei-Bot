@@ -1,17 +1,24 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-//const { kickList } = require('../commands/search');
 
 module.exports = {
     data: {name: 'memberPruneButton'},
 
     execute(interaction) {
 
-        // ADD KICK
+        // Kick. Pay attention while testing.
+        let notKicked = 0;
+        global.kickList.forEach(user => {
+            if(user.kickable || !user.permissions.has('MANAGE_GUILD')) {
+                user.kick('Search Pruned');
+            } else {
+                notKicked++;
+            }
+        })
 
         const replyEmbed = new EmbedBuilder()
             .setColor('Green')
             .setTitle(`${successEmoji} Fatto!`)
-            .setDescription('Pulizia dei membri effettuata con successo.')
+            .setDescription(`${notKicked} membri non kickati. (Per gerarchia ruoli/permessi del membro)`)
             .setTimestamp()
 
         const row = new ActionRowBuilder()
@@ -30,6 +37,6 @@ module.exports = {
                     .setDisabled(true)
             );
 
-        interaction.update({embeds: [replyEmbed], components: [row], ephemeral: true});
+        return interaction.update({embeds: [replyEmbed], components: [row], ephemeral: true});
     }
 }
