@@ -1,4 +1,9 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const { subcmd_info } = require("./subcommands/info");
+const { subcmd_kicktime } = require("./subcommands/kicktime");
+const { subcmd_logs } = require("./subcommands/log-channel");
+const { subcmd_mandRoles } = require("./subcommands/mandatory-roles");
+const { subcmd_targetRole } = require("./subcommands/target-role");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -76,6 +81,19 @@ module.exports = {
 
     async execute(interaction) {
 
-        
+        const subCommand = interaction.options.getSubcommand();
+
+        // Subcommand handling, to improve.
+        if(subCommand === 'info') {
+            subcmd_info(interaction);
+        } else if(subCommand === 'target-role') {
+            subcmd_targetRole(interaction);
+        } else if(subCommand === 'mandatory-roles') {
+            subcmd_mandRoles(interaction);
+        } else if(subCommand === 'kicktime') {
+            subcmd_kicktime(interaction);
+        } else if(subCommand === 'log-channel') {
+            subcmd_logs(interaction);
+        }
     }
 }
