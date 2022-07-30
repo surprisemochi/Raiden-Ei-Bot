@@ -56,8 +56,9 @@ global.targetRole, global.logChannel, global.kickTime = null;
 global.mandRole = new Array();
 
 global.raidenColour = 'DarkPurple';
-global.successEmoji = "<a:bot_success:522080656604397591>";
-global.alertEmoji = "<a:bot_alert:997448756398129222>";
-global.warningEmoji = "<:bot_warning:994288250858508369>";
+global.successEmoji = '<a:bot_success:522080656604397591>';
+global.alertEmoji = '<a:bot_alert:997448756398129222>';
+global.warningEmoji = '<:bot_warning:994288250858508369>';
+global.typingEmoji = '<a:bot_typing:1002938798067417159>';
 
 client.login(token);
