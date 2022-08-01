@@ -54,6 +54,11 @@ module.exports = {
                         .setDescription('Il ruolo obbligatorio #5')
                         .setRequired(true)
                 )
+                .addRoleOption(option =>
+                    option.setName('ruolo6')
+                        .setDescription('Il ruolo obbligatorio #6')
+                        .setRequired(true)
+                )
         )
         .addSubcommand(subcommand =>
             subcommand
