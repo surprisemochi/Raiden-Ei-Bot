@@ -1,4 +1,6 @@
 const { EmbedBuilder, ChannelType } = require('discord.js');
+const { warningEmoji, raidenColour, successEmoji } = require('../../global/global-var');
+let { logChannel } = require('../../global/global-var');
 
 const subcmd_logs = (interaction) => {
     

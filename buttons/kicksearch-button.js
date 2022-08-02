@@ -1,4 +1,6 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { successEmoji } = require('../global/global-var');
+let { kickList } = require('../global/global-var');
 
 module.exports = {
     data: {name: 'memberPruneButton'},
@@ -7,7 +9,7 @@ module.exports = {
 
         // Kick. Pay attention while testing.
         let notKicked = 0;
-        global.kickList.forEach(user => {
+        kickList.forEach(user => {
             if(user.kickable || !user.permissions.has('MANAGE_GUILD')) {
                 user.kick('Search Pruned');
             } else {

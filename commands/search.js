@@ -1,5 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { warningEmoji, raidenColour } = require('../global/global-var');
+let { targetRole, mandRole, kickList } = require('../global/global-var');
 
 module.exports = {
 
@@ -21,14 +23,13 @@ module.exports = {
 
         async execute(interaction) {
 
-            // No target or mandatory role(s) error.
-            if(global.targetRole == null || global.mandRole.length === 0) {
+            // No target or mandatory role(s) error. FIX
+            if(targetRole == null || mandRole.length === 0) {
                 return interaction.reply(
-                    {content: `${global.warningEmoji} **| Ruoli non settati correttamente.**`, ephemeral: true} );
+                    {content: `${warningEmoji} **| Ruoli non settati correttamente.**`, ephemeral: true} );
             }
 
             let userNumber = 0;
-            global.kickList = new Array()
             let hasRoleList = new Array();
 
             // Checks the number of members that have the target role / do not have the mandatory roles.

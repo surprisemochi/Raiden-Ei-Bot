@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { raidenColour, typingEmoji } = require('../global/global-var');
 
 module.exports = {
     data: new SlashCommandBuilder()

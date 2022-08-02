@@ -1,4 +1,5 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
+const { successEmoji } = require('../global/global-var');
 
 module.exports = {
     data: {name: 'ignoreButton'},

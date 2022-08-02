@@ -1,17 +1,28 @@
 const { EmbedBuilder } = require('discord.js');
 
 // Boolean object to check if the setup is complete.
-let setupArray = {
+let setupObj = {
     target: false,
     mandatoryRoles: false,
     kick_time: false,
     logs: false,
     info: false
 };
+// Checks if the setup is complete (all object's values are true).
+const setupEnd = Object.values(setupObj).every(value => value === true);
 
-// global
+// Other global variables.
 const botVersion = 'v1.0';
 const raidenColour = 'DarkPurple';
+let targetRole, logChannel = null;
+let mandRole = new Array();
+let kickTime = 60000;
+let kickList = new Array();
+
+const successEmoji = '<a:bot_success:522080656604397591>';
+const alertEmoji = '<a:bot_alert:997448756398129222>';
+const warningEmoji = '<:bot_warning:994288250858508369>';
+const typingEmoji = '<a:bot_typing:1002938798067417159>';
 
 // Embeds
 function help_embed(interaction) {
@@ -57,4 +68,7 @@ function help_embed(interaction) {
     return helpEmbed;
 }
 
-module.exports = {setupArray, botVersion, raidenColour, help_embed};
+module.exports = {
+    setupEnd, botVersion, raidenColour, targetRole, logChannel, mandRole, kickTime, kickList,
+    successEmoji, alertEmoji, warningEmoji, typingEmoji, help_embed
+};
