@@ -85,7 +85,7 @@ function help_embed(interaction) {
             )
             .setFooter(
                 {
-                    text: `${botVersion} | Developed with ❤️ by ${selfProfile.tag}\n⬇️ Clicca i bottoni per maggiori informazioni sui comandi ⬇️`,
+                    text: `${botVersion} | Developed with ❤️ by ${selfProfile.tag}`,
                     iconURL: `${selfProfile.displayAvatarURL()}`
                 }
             )

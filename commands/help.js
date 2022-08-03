@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, SelectMenuBuilder } = require('discord.js');
 const { help_embed } = require('../global/global-var');
 
 module.exports = {
@@ -12,22 +12,35 @@ module.exports = {
 
         const row = new ActionRowBuilder()
                 .addComponents(
-                    new ButtonBuilder()
-                        .setCustomId('setup-button')
-                        .setLabel('/setup')
-                        .setStyle(ButtonStyle.Secondary)
-                )
-                .addComponents(
-                    new ButtonBuilder()
-                        .setCustomId('search-button')
-                        .setLabel('/search')
-                        .setStyle(ButtonStyle.Secondary)
-                )
-                .addComponents(
-                    new ButtonBuilder()
-                        .setCustomId('back-button')
-                        .setLabel('Indietro')
-                        .setStyle(ButtonStyle.Primary)
+                    new SelectMenuBuilder()
+                        .setCustomId('help-select-menu')
+                        .setPlaceholder(`Clicca per più informazioni sul bot`)
+                        .addOptions(
+                            {
+                                label: '/setup',
+                                description: 'Informazioni sul comando /setup',
+                                emoji: '⚙️',
+                                value: `setup-option`
+                            },
+                            {
+                                label: '/search',
+                                description: 'Informazioni sul comando /search',
+                                emoji: '🔎',
+                                value: 'search-option'
+                            },
+                            {
+                                label: 'Stato del completamento del setup',
+                                description: 'Informazioni sul sistema di controllo',
+                                emoji: '❓',
+                                value: 'setupstatus-option'
+                            },
+                            {
+                                label: 'Home',
+                                description: 'Ritorna alla pagina /help',
+                                emoji: '🏠',
+                                value: 'home-option'
+                            }
+                        )
                 )
 
         return interaction.reply({embeds: [help], components: [row]});

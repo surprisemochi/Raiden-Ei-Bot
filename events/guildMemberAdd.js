@@ -59,7 +59,7 @@ module.exports = {
             const mandRolesEmbed = new EmbedBuilder()
                 .setColor('Yellow')
                 .setTitle(`${warningEmoji} Non hai selezionato i ruoli obbligatori!`)
-                .setDescription(`Per selezionare i ruoli recati nell'apposito canale.`)
+                .setDescription(`Per selezionare i ruoli recati nell'apposito [canale](https://discord.com/channels/835975262172479518/836158256975314954/998684871352406026).`)    // TODO: make it non guild based
                 .setTimestamp()
                 .setFooter({text: `Kick automatico da ${member.guild.name} tra: ${kickTime/60000} min`})
 

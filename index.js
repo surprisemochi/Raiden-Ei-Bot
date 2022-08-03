@@ -37,6 +37,17 @@ for (const file of buttonFiles) {
 	client.buttons.set(button.data.name, button);
 }
 
+// Reading menus from folder.
+client.menus = new Collection();
+const menusPath = path.join(__dirname, 'select_menus');
+const menuFiles = fs.readdirSync(menusPath).filter(file => file.endsWith('.js'));
+
+for (const file of menuFiles) {
+	const filePath = path.join(menusPath, file);
+	const menu = require(filePath);
+	client.menus.set(menu.data.name, menu);
+}
+
 // Reading events from folder.
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
