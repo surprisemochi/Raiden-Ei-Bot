@@ -1,9 +1,9 @@
 const { EmbedBuilder } = require('discord.js');
 const { raidenColour, successEmoji, setupSetStatus } = require('../../global/global-var');
 
-const subcmd_kicktime = (interaction) => {
+const subcmd_kicktime = async(interaction) => {
     
-    kickTime = interaction.options.getNumber("kicktime") * 60000;
+    kickTime = await interaction.options.getNumber("kicktime") * 60000;
     setupObj.kick_time = true;
 
     // Default kick time: 1 minute.
@@ -19,10 +19,6 @@ const subcmd_kicktime = (interaction) => {
                 {name: 'Kick Time:', value: `${kickTime/60000} min`, inline: false},
             )
             .setTimestamp()
-            .setFooter(
-                {text: `Developed with ❤️ by ${selfProfile.tag}`,
-                iconURL: `${selfProfile.displayAvatarURL()}`}
-            )
     setupSetStatus(setupEmbed);
 
     return interaction.reply({embeds: [setupEmbed]});

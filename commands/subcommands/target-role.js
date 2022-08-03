@@ -1,9 +1,9 @@
 const { EmbedBuilder } = require('discord.js');
 const { raidenColour, successEmoji, setupSetStatus } = require('../../global/global-var');
 
-const subcmd_targetRole = (interaction) => {
+const subcmd_targetRole = async(interaction) => {
     
-    targetRole = interaction.options.getRole("target");
+    targetRole = await interaction.options.getRole("target");
     setupObj.target_role = true;
 
     const setupEmbed = new EmbedBuilder()
@@ -13,10 +13,6 @@ const subcmd_targetRole = (interaction) => {
                 {name: 'Ruolo Target:', value: `${targetRole} (${targetRole.id})`, inline: true},
             )
             .setTimestamp()
-            .setFooter(
-                {text: `Developed with ❤️ by ${selfProfile.tag}`,
-                iconURL: `${selfProfile.displayAvatarURL()}`}
-            )
     setupSetStatus(setupEmbed);
 
     return interaction.reply({embeds: [setupEmbed]});

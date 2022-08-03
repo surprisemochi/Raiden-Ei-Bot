@@ -1,15 +1,16 @@
 const { EmbedBuilder } = require('discord.js');
 const { warningEmoji, raidenColour, setupSetStatus, setupEnd } = require('../../global/global-var');
 
-const subcmd_info = async (interaction) => {
+const subcmd_info = async(interaction) => {
 
-    console.log({setupEnd})
+    console.log('setupEnd:', setupEnd(setupObj))
 
     const setInfoEmbed = new EmbedBuilder()
         .setColor(`${raidenColour}`)
+        .setTimestamp()
 
     // Setup is not complete.
-    if(!setupEnd) {
+    if(!setupEnd(setupObj)) {
         setupSetStatus(setInfoEmbed);
         return interaction.reply(
             {
@@ -28,11 +29,6 @@ const subcmd_info = async (interaction) => {
             {name: 'Canale Log:', value: `${logChannel} (${logChannel.id})`, inline: true},
             {name: 'Ruoli Obbligatori:', value: `${roles}`},
             {name: 'Kick Time:', value: `${kickTime/60000} min`, inline: false},
-        )
-        .setTimestamp()
-        .setFooter(
-            {text: `Developed with ❤️ by ${selfProfile.tag}`,
-            iconURL: `${selfProfile.displayAvatarURL()}`}
         )
     
     return interaction.reply({embeds: [setInfoEmbed], ephemeral: true});

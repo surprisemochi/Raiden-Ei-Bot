@@ -1,9 +1,9 @@
 const { EmbedBuilder, ChannelType } = require('discord.js');
 const { warningEmoji, raidenColour, successEmoji, setupSetStatus } = require('../../global/global-var');
 
-const subcmd_logs = (interaction) => {
+const subcmd_logs = async(interaction) => {
     
-    logChannel = interaction.options.getChannel("canale");
+    logChannel = await interaction.options.getChannel("canale");
     setupObj.log_channel = true;
 
     if(logChannel.type !== ChannelType.GuildText) return interaction.reply(
@@ -17,10 +17,6 @@ const subcmd_logs = (interaction) => {
                 {name: 'Canale Log:', value: `${logChannel} (${logChannel.id})`, inline: true},
             )
             .setTimestamp()
-            .setFooter(
-                {text: `Developed with ❤️ by ${selfProfile.tag}`,
-                iconURL: `${selfProfile.displayAvatarURL()}`}
-            )
     setupSetStatus(setupEmbed);
 
     return interaction.reply({embeds: [setupEmbed]});
