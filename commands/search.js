@@ -1,7 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { warningEmoji, raidenColour } = require('../global/global-var');
-let { targetRole, mandRole, kickList } = require('../global/global-var');
 
 module.exports = {
 

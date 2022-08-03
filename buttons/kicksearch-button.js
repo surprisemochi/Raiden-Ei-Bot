@@ -1,6 +1,5 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { successEmoji } = require('../global/global-var');
-let { kickList } = require('../global/global-var');
 
 module.exports = {
     data: {name: 'memberPruneButton'},

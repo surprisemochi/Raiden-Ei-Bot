@@ -1,6 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
 const { raidenColour, successEmoji } = require('../../global/global-var');
-let { targetRole } = require('../../global/global-var');
 
 const subcmd_targetRole = (interaction) => {
     

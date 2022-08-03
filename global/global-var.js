@@ -14,10 +14,10 @@ const setupEnd = Object.values(setupObj).every(value => value === true);
 // Other global variables.
 const botVersion = 'v1.0';
 const raidenColour = 'DarkPurple';
-let targetRole, logChannel = null;
-let mandRole = new Array();
-let kickTime = 60000;
-let kickList = new Array();
+globalThis.targetRole, globalThis.logChannel = null;
+globalThis.mandRole = new Array();
+globalThis.kickTime = 60000;
+globalThis.kickList = new Array();
 
 const successEmoji = '<a:bot_success:522080656604397591>';
 const alertEmoji = '<a:bot_alert:997448756398129222>';
@@ -69,6 +69,5 @@ function help_embed(interaction) {
 }
 
 module.exports = {
-    setupEnd, botVersion, raidenColour, targetRole, logChannel, mandRole, kickTime, kickList,
-    successEmoji, alertEmoji, warningEmoji, typingEmoji, help_embed
+    setupEnd, botVersion, raidenColour, successEmoji, alertEmoji, warningEmoji, typingEmoji, help_embed
 };

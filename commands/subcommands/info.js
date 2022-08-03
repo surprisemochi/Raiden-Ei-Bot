@@ -1,6 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
 const { warningEmoji, raidenColour } = require('../../global/global-var');
-let { targetRole, logChannel, mandRole, kickTime } = require('../../global/global-var');
 
 const subcmd_info = async (interaction) => {
 
@@ -17,13 +16,15 @@ const subcmd_info = async (interaction) => {
             }
     );
     
+    const roles = mandRole.join(' ');
+
     const setInfoEmbed = new EmbedBuilder()
         .setColor(`${raidenColour}`)
         .setTitle(`Setup corrente:`)
         .addFields(
             {name: 'Ruolo Target:', value: `${targetRole} (${targetRole.id})`, inline: true},
             {name: 'Canale Log:', value: `${logChannel} (${logChannel.id})`, inline: true},
-            {name: 'Ruoli Obbligatori:', value: `TBA`},
+            {name: 'Ruoli Obbligatori:', value: `${roles}`},
             {name: 'Kick Time:', value: `${kickTime/60000} min`, inline: false},
         )
         .setTimestamp()
