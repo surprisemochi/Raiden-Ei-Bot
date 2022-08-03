@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const { raidenColour, successEmoji } = require('../../global/global-var');
+const { raidenColour, successEmoji, setupSetStatus } = require('../../global/global-var');
 
 const subcmd_mandRoles = (interaction) => {
     
@@ -7,6 +7,8 @@ const subcmd_mandRoles = (interaction) => {
     for(let i = 1; i <= 6; i++) {
         mandRole.push(interaction.options.getRole(`ruolo${i}`));
     }
+    setupObj.mandatory_roles = true;
+
     console.log({mandRole});
     console.log(`Length: ${Object.keys(mandRole).length}`);
 
@@ -23,6 +25,7 @@ const subcmd_mandRoles = (interaction) => {
             {text: `Developed with ❤️ by ${selfProfile.tag}`,
             iconURL: `${selfProfile.displayAvatarURL()}`}
         )
+    setupSetStatus(mandRoleEmbed);
 
     return interaction.reply({embeds: [mandRoleEmbed]});
 }

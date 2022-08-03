@@ -1,15 +1,36 @@
 const { EmbedBuilder } = require('discord.js');
 
 // Boolean object to check if the setup is complete.
-let setupObj = {
-    target: false,
-    mandatoryRoles: false,
+globalThis.setupObj = {
+    target_role: false,
+    mandatory_roles: false,
     kick_time: false,
-    logs: false,
-    info: false
+    log_channel: false,
 };
-// Checks if the setup is complete (all object's values are true).
-const setupEnd = Object.values(setupObj).every(value => value === true);
+// Omits kick_time property from the search.
+let {kick_time, ...searchObj} = setupObj;
+// Checks if the setup is complete (all object's values are true, kick_time is omitted).
+const setupEnd = Object.values(searchObj).every(value => value === true);
+
+// Creates the embed status.
+function setupSetStatus(inputEmbed) {
+    if(!inputEmbed) return;
+    let setupArray = new Array();
+
+    Object.entries(setupObj).forEach(entry => {
+        const [key, value] = entry;
+
+        // Special case: kick_time (has a default setting)
+        if(key === 'kick_time' && !value) {
+            setupArray.push(`\`🟡 ${key} \``)
+        } else {
+            value ? setupArray.push(`\`🟢 ${key} \``) : setupArray.push(`\`🔴 ${key} \``);
+        }
+    })
+
+    const line = setupArray.join(' ');
+    return inputEmbed.addFields({name: 'Stato del completamento del setup:', value: `${line}`});
+}
 
 // Other global variables.
 const botVersion = 'v1.0';
@@ -69,5 +90,6 @@ function help_embed(interaction) {
 }
 
 module.exports = {
-    setupEnd, botVersion, raidenColour, successEmoji, alertEmoji, warningEmoji, typingEmoji, help_embed
+    setupEnd, botVersion, raidenColour, successEmoji, alertEmoji, warningEmoji, typingEmoji,
+    help_embed, setupSetStatus
 };

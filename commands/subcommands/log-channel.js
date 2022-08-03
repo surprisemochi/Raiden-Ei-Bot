@@ -1,9 +1,10 @@
 const { EmbedBuilder, ChannelType } = require('discord.js');
-const { warningEmoji, raidenColour, successEmoji } = require('../../global/global-var');
+const { warningEmoji, raidenColour, successEmoji, setupSetStatus } = require('../../global/global-var');
 
 const subcmd_logs = (interaction) => {
     
     logChannel = interaction.options.getChannel("canale");
+    setupObj.log_channel = true;
 
     if(logChannel.type !== ChannelType.GuildText) return interaction.reply(
         {content: `${warningEmoji} **| ${logChannel} non è un canale testuale, riprova.**`, ephemeral: true}
@@ -20,8 +21,9 @@ const subcmd_logs = (interaction) => {
                 {text: `Developed with ❤️ by ${selfProfile.tag}`,
                 iconURL: `${selfProfile.displayAvatarURL()}`}
             )
+    setupSetStatus(setupEmbed);
 
-        return interaction.reply({embeds: [setupEmbed]});
+    return interaction.reply({embeds: [setupEmbed]});
 }
 
 module.exports = { subcmd_logs }
