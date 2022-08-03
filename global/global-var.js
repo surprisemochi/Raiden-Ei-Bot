@@ -1,16 +1,19 @@
 const { EmbedBuilder } = require('discord.js');
 
-// Boolean object to check if the setup is complete.
+// Boolean object to check if the setup is completed.
 globalThis.setupObj = {
     target_role: false,
     mandatory_roles: false,
     kick_time: false,
     log_channel: false,
 };
-// Omits kick_time property from the search.
-let {kick_time, ...searchObj} = setupObj;
+
 // Checks if the setup is complete (all object's values are true, kick_time is omitted).
-const setupEnd = Object.values(searchObj).every(value => value === true);
+function setupEnd(obj) {
+    // Omits kick_time property for the search.
+    let {kick_time, ...restObj} = obj;
+    return Object.values(restObj).every(value => value === true);
+}
 
 // Creates the embed status.
 function setupSetStatus(inputEmbed) {
