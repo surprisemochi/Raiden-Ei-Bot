@@ -7,7 +7,7 @@ const subcmd_kicktime = async(interaction) => {
     setupObj.kick_time = true;
 
     // Default kick time: 1 minute.
-    if(kickTime == null || kickTime <= 0) {
+    if(kickTime == null || kickTime === 60000 || kickTime <= 0) {
         kickTime = 60000;
         setupObj.kick_time = false;
     }
