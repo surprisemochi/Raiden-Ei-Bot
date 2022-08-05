@@ -1,48 +1,13 @@
-function kickLogCreate(member) {
-    const log = new EmbedBuilder()
-        .setColor('Red')
-        .setTitle('Membro kickato')
-        .setAuthor({
-            name: `${member.user.tag}`,
-            iconURL: `${member.user.displayAvatarURL()}`
-        })
-        .addFields(
-            {name: 'Nome:', value: `${member.user}`, inline: true},
-            {name: 'ID:', value: `${member.user.id}`, inline: true},
-        )
-        .setThumbnail(`${member.user.displayAvatarURL()}`)
-        .setTimestamp()
-    
-    return log;
-}
-function dmErrorCreate(member) {
-    const dmLog = new EmbedBuilder()
-        .setColor('Yellow')
-        .setTitle(`${warningEmoji} Impossibile inviare DM a ${member.user.tag}`)
-        .setDescription(`L'utente verrà comunque kickato tra: ${kickTime/60000} min.`)
-        .setAuthor({
-            name: `${member.user.tag}`,
-            iconURL: `${member.user.displayAvatarURL()}`
-        })
-        .addFields(
-            {name: 'Nome:', value: `${member.user}`, inline: true},
-            {name: 'ID:', value: `${member.user.id}`, inline: true},
-        )
-        .setThumbnail(`${member.user.displayAvatarURL()}`)
-        .setTimestamp()
-
-    return dmLog;
-}
-
 const { EmbedBuilder } = require('discord.js');
+const { kickLogCreate, dmErrorCreate, setupEnd } = require('../global/global-var');
 
 module.exports = {
     name: 'guildMemberAdd',
 
     execute(member) {
-        // If the new member is a bot, ignore.
+        // If the new member is a bot or the setup is not finished, ignore.
         if(member.user.bot) return;
-        if(global.logChannel == null) return;
+        if(!setupEnd(setupObj)) return console.error('[MemberAdd]Setup: ', setupEnd(setupObj));
 
         let hasRole = false;
         mandRole.forEach(findRole => {

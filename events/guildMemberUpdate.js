@@ -1,47 +1,12 @@
-// Returns the log embed to use further in the code.
-function kickLogCreate(member) {
-    const log = new EmbedBuilder()
-        .setColor('Red')
-        .setTitle('Membro kickato')
-        .setAuthor({
-            name: `${member.user.tag}`,
-            iconURL: `${member.user.displayAvatarURL()}`
-        })
-        .addFields(
-            {name: 'Nome:', value: `${member.user}`, inline: true},
-            {name: 'ID:', value: `${member.user.id}`, inline: true},
-        )
-        .setThumbnail(`${member.user.displayAvatarURL()}`)
-        .setTimestamp()
-    
-    return log;
-}
-function dmErrorCreate(member) {
-    const dmLog = new EmbedBuilder()
-        .setColor('Yellow')
-        .setTitle(`${warningEmoji} Impossibile inviare DM a ${member.user.tag}`)
-        .setDescription(`L'utente verrà comunque kickato tra: ${kickTime/60000} min.`)
-        .setAuthor({
-            name: `${member.user.tag}`,
-            iconURL: `${member.user.displayAvatarURL()}`
-        })
-        .addFields(
-            {name: 'Nome:', value: `${member.user}`, inline: true},
-            {name: 'ID:', value: `${member.user.id}`, inline: true},
-        )
-        .setThumbnail(`${member.user.displayAvatarURL()}`)
-        .setTimestamp()
-
-    return dmLog;
-}
-
 const { EmbedBuilder } = require('discord.js');
+const { kickLogCreate, dmErrorCreate, setupEnd } = require('../global/global-var');
 
 module.exports = {
     name: 'guildMemberUpdate',
 
     execute(oldMember, newMember) {
-        if(global.targetRole == null) return console.error('Target not set. MemberUpdate ignored.');
+        // If setup is not completed.
+        if(!setupEnd(setupObj)) return console.error('[MemberUpdate]Setup: ', setupEnd(setupObj));
 
         // Setting the reason
         let reason;
