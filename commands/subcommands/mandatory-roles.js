@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const { raidenColour, successEmoji, setupSetStatus } = require('../../global/global-var');
+const { successEmoji, setupSetStatus } = require('../../global/global-var');
 
 const subcmd_mandRoles = async(interaction) => {
     
@@ -15,7 +15,7 @@ const subcmd_mandRoles = async(interaction) => {
     const roleString = mandRole.join(' ');
 
     const mandRoleEmbed = new EmbedBuilder()
-        .setColor(`${raidenColour}`)
+        .setColor('Green')
         .setTitle(`${successEmoji} Fatto!`)
         .addFields(
             {name: 'Ruoli impostati:', value: `${roleString}`}

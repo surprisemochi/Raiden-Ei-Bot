@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const { raidenColour, successEmoji, setupSetStatus } = require('../../global/global-var');
+const { successEmoji, setupSetStatus } = require('../../global/global-var');
 
 const subcmd_targetRole = async(interaction) => {
     
@@ -7,7 +7,7 @@ const subcmd_targetRole = async(interaction) => {
     setupObj.target_role = true;
 
     const setupEmbed = new EmbedBuilder()
-            .setColor(`${raidenColour}`)
+            .setColor('Green')
             .setTitle(`${successEmoji} Fatto!`)
             .addFields(
                 {name: 'Ruolo Target:', value: `${targetRole} (${targetRole.id})`, inline: true},

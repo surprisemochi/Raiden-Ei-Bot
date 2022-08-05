@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const { raidenColour, successEmoji, setupSetStatus } = require('../../global/global-var');
+const { successEmoji, setupSetStatus } = require('../../global/global-var');
 
 const subcmd_kicktime = async(interaction) => {
     
@@ -13,7 +13,7 @@ const subcmd_kicktime = async(interaction) => {
     }
 
     const setupEmbed = new EmbedBuilder()
-            .setColor(`${raidenColour}`)
+            .setColor('Green')
             .setTitle(`${successEmoji} Fatto!`)
             .addFields(
                 {name: 'Kick Time:', value: `${kickTime/60000} min`, inline: false},

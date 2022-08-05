@@ -12,6 +12,7 @@ const subcmd_info = async(interaction) => {
     // Setup is not complete.
     if(!setupEnd(setupObj)) {
         setupSetStatus(setInfoEmbed);
+        setInfoEmbed.setColor('Yellow');
         return interaction.reply(
             {
                 content: `${warningEmoji} **| Per mostrare informazioni aggiuntive completa il setup.**`,

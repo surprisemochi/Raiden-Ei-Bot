@@ -1,5 +1,5 @@
 const { EmbedBuilder, ChannelType } = require('discord.js');
-const { warningEmoji, raidenColour, successEmoji, setupSetStatus } = require('../../global/global-var');
+const { warningEmoji, successEmoji, setupSetStatus } = require('../../global/global-var');
 
 const subcmd_logs = async(interaction) => {
     
@@ -11,7 +11,7 @@ const subcmd_logs = async(interaction) => {
     );
 
     const setupEmbed = new EmbedBuilder()
-            .setColor(`${raidenColour}`)
+            .setColor('Green')
             .setTitle(`${successEmoji} Fatto!`)
             .addFields(
                 {name: 'Canale Log:', value: `${logChannel} (${logChannel.id})`, inline: true},
