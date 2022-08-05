@@ -91,8 +91,43 @@ function help_embed(interaction) {
             )
     return helpEmbed;
 }
+function kickLogCreate(member) {
+    const log = new EmbedBuilder()
+        .setColor('Red')
+        .setTitle('Membro kickato')
+        .setAuthor({
+            name: `${member.user.tag}`,
+            iconURL: `${member.user.displayAvatarURL()}`
+        })
+        .addFields(
+            {name: 'Nome:', value: `${member.user}`, inline: true},
+            {name: 'ID:', value: `${member.user.id}`, inline: true},
+        )
+        .setThumbnail(`${member.user.displayAvatarURL()}`)
+        .setTimestamp()
+    
+    return log;
+}
+function dmErrorCreate(member) {
+    const dmLog = new EmbedBuilder()
+        .setColor('Yellow')
+        .setTitle(`${warningEmoji} Impossibile inviare DM a ${member.user.tag}`)
+        .setDescription(`L'utente verrà comunque kickato tra: ${kickTime/60000} min.`)
+        .setAuthor({
+            name: `${member.user.tag}`,
+            iconURL: `${member.user.displayAvatarURL()}`
+        })
+        .addFields(
+            {name: 'Nome:', value: `${member.user}`, inline: true},
+            {name: 'ID:', value: `${member.user.id}`, inline: true},
+        )
+        .setThumbnail(`${member.user.displayAvatarURL()}`)
+        .setTimestamp()
+
+    return dmLog;
+}
 
 module.exports = {
     setupEnd, botVersion, raidenColour, successEmoji, alertEmoji, warningEmoji, typingEmoji,
-    help_embed, setupSetStatus
+    help_embed, setupSetStatus, kickLogCreate, dmErrorCreate
 };
