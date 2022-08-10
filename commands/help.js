@@ -43,6 +43,6 @@ module.exports = {
                         )
                 )
 
-        return interaction.reply({embeds: [help], components: [row]});
+        return interaction.reply({embeds: [help], components: [row], files: ['./img/Emblem_Inazuma.png']});
     }
 }

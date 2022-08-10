@@ -52,7 +52,7 @@ const typingEmoji = '<a:bot_typing:1002938798067417159>';
 function help_embed(interaction) {
     const helpEmbed = new EmbedBuilder()
             .setColor(`${raidenColour}`)
-            .setThumbnail(`${interaction.client.user.displayAvatarURL()}`)
+            .setThumbnail('attachment://Emblem_Inazuma.png')
             .setTitle(`Guida all'utilizzo di ${interaction.client.user.username}.`)
             .setDescription(`${interaction.client.user.username} si occuperà di\
             auto-moderare i nuovi membri del server attraverso il controllo dei ruoli selezionati.\n
