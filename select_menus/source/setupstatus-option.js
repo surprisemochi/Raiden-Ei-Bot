@@ -7,7 +7,7 @@ async function setupstatus_option(interaction) {
         .setColor(0x71368A)
         .setTitle('Stato del completamento del setup')
         .setDescription(`Nei comandi di \`/setup <options>\`, verrà visualizzato un campo come questo seguente.\n
-        Il \`🔴\` indica non impostato, \`🟢\` impostato , \`🟡\` impostato con valori default (setup facoltativo).`)
+        \`🔴\` non impostato, \`🟢\` impostato , \`🟡\` impostato con valori default (setup facoltativo).`)
 
     setupSetStatus(embed);
 
