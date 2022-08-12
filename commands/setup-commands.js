@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const { SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require("discord.js");
 const { subcmd_info } = require("./subcommands/info");
 const { subcmd_kicktime } = require("./subcommands/kicktime");
 const { subcmd_logs } = require("./subcommands/log-channel");
@@ -78,7 +78,8 @@ module.exports = {
                     option
                         .setName('canale')
                         .setDescription('Il canale dove il bot invierà i log.')
-                        .setRequired(true)   
+                        .setRequired(true)
+                        .addChannelTypes(ChannelType.GuildText)
                 )
         )
         .setDMPermission(false)
