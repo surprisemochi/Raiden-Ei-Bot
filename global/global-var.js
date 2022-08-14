@@ -6,12 +6,13 @@ globalThis.setupObj = {
     mandatory_rl: false,
     kick_time: false,
     log_ch: false,
+    roles_link: false,
 };
 
 // Checks if the setup is complete (all object's values are true, kick_time is omitted).
 function setupEnd(obj) {
     // Omits kick_time property for the search.
-    let {kick_time, ...restObj} = obj;
+    let {kick_time, roles_link, ...restObj} = obj;
     return Object.values(restObj).every(value => value === true);
 }
 
@@ -26,6 +27,8 @@ function setupSetStatus(inputEmbed) {
         // Special case: kick_time (has a default setting)
         if(key === 'kick_time' && !value) {
             setupArray.push(`\`🟡 ${key} \``)
+        } else if(key === 'roles_link' && !value) {
+            setupArray.push(`\`⚪ ${key} \``)
         } else {
             value ? setupArray.push(`\`🟢 ${key} \``) : setupArray.push(`\`🔴 ${key} \``);
         }
@@ -38,9 +41,11 @@ function setupSetStatus(inputEmbed) {
 // Other global variables.
 const botVersion = 'v1.0 beta';
 const raidenColour = 'DarkPurple';
-globalThis.targetRole, globalThis.logChannel = null;
+globalThis.targetRole;
+globalThis.logChannel;
 globalThis.mandRole = new Array();
 globalThis.kickTime = 60000;
+globalThis.rolesLink;
 globalThis.kickList = new Array();
 
 const successEmoji = '<a:bot_success:522080656604397591>';
