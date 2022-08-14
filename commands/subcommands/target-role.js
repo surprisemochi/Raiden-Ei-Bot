@@ -4,7 +4,7 @@ const { successEmoji, setupSetStatus } = require('../../global/global-var');
 const subcmd_targetRole = async(interaction) => {
     
     targetRole = await interaction.options.getRole("target");
-    setupObj.target_role = true;
+    setupObj.target_rl = true;
 
     const setupEmbed = new EmbedBuilder()
             .setColor('Green')

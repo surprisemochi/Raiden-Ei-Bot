@@ -4,7 +4,7 @@ const { successEmoji, setupSetStatus } = require('../../global/global-var');
 const subcmd_logs = async(interaction) => {
     
     logChannel = await interaction.options.getChannel("canale");
-    setupObj.log_channel = true;
+    setupObj.log_ch = true;
 
     const setupEmbed = new EmbedBuilder()
             .setColor('Green')

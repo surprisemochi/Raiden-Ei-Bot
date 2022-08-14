@@ -7,7 +7,7 @@ const subcmd_mandRoles = async(interaction) => {
     for(let i = 1; i <= 6; i++) {
         mandRole.push(await interaction.options.getRole(`ruolo${i}`));
     }
-    setupObj.mandatory_roles = true;
+    setupObj.mandatory_rl = true;
 
     console.log({mandRole});
     console.log(`Length: ${Object.keys(mandRole).length}`);

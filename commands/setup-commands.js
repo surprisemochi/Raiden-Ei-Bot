@@ -3,6 +3,7 @@ const { subcmd_info } = require("./subcommands/info");
 const { subcmd_kicktime } = require("./subcommands/kicktime");
 const { subcmd_logs } = require("./subcommands/log-channel");
 const { subcmd_mandRoles } = require("./subcommands/mandatory-roles");
+const { subcmd_rolesLink } = require("./subcommands/roles-link");
 const { subcmd_targetRole } = require("./subcommands/target-role");
 
 module.exports = {
@@ -82,6 +83,16 @@ module.exports = {
                         .addChannelTypes(ChannelType.GuildText)
                 )
         )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('roles-link')
+                .setDescription('Aggiunge un bottone con il link al canale/messaggio con i ruoli obbligatori (facoltativo)')
+                .addStringOption(option =>
+                    option.setName('link')
+                        .setDescription('Il link al canale/messaggio')
+                        .setRequired(true)
+                )
+        )
         .setDMPermission(false)
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
 
@@ -100,6 +111,8 @@ module.exports = {
             subcmd_kicktime(interaction);
         } else if(subCommand === 'log-channel') {
             subcmd_logs(interaction);
+        } else if(subCommand === 'roles-link') {
+            subcmd_rolesLink(interaction);
         }
     }
 }
