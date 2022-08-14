@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, inlineCode, bold, italic } = require('discord.js');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { warningEmoji, raidenColour } = require('../global/global-var');
 
@@ -23,9 +23,11 @@ module.exports = {
         async execute(interaction) {
 
             // No target or mandatory role(s) error. FIX
-            if(targetRole == null || mandRole.length === 0) {
+            if(setupObj.target_rl || setupObj.mandatory_rl === false) {
+                const reason = `${italic(`Digita ${inlineCode('/setup info')} per maggiori informazioni.`)}`;
+                
                 return interaction.reply(
-                    {content: `${warningEmoji} **| Ruoli non settati correttamente.**`, ephemeral: true} );
+                    {content: `${warningEmoji} ${bold('| Ruoli non settati correttamente.')}\n${reason}`, ephemeral: true} );
             }
 
             let userNumber = 0;
