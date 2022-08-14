@@ -2,10 +2,10 @@ const { EmbedBuilder } = require('discord.js');
 
 // Boolean object to check if the setup is completed.
 globalThis.setupObj = {
-    target_role: false,
-    mandatory_roles: false,
+    target_rl: false,
+    mandatory_rl: false,
     kick_time: false,
-    log_channel: false,
+    log_ch: false,
 };
 
 // Checks if the setup is complete (all object's values are true, kick_time is omitted).
