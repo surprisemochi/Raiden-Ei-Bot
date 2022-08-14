@@ -36,7 +36,7 @@ function setupSetStatus(inputEmbed) {
 }
 
 // Other global variables.
-const botVersion = 'v1.0';
+const botVersion = 'v1.0 beta';
 const raidenColour = 'DarkPurple';
 globalThis.targetRole, globalThis.logChannel = null;
 globalThis.mandRole = new Array();
