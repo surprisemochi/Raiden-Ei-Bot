@@ -1,5 +1,5 @@
-const { EmbedBuilder } = require('discord.js');
-const { kickLogCreate, dmErrorCreate, setupEnd } = require('../global/global-var');
+const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { warningEmoji, kickLogCreate, dmErrorCreate, setupEnd } = require('../global/global-var');
 
 module.exports = {
     name: 'guildMemberUpdate',
@@ -10,7 +10,7 @@ module.exports = {
 
         // Setting the reason
         let reason;
-        if(newMember.permissions.has("MANAGE_GUILD")) {
+        if(newMember.permissions.has(PermissionsBitField.Flags.ManageGuild)) {
             reason = `${newMember.user} ha i permessi MANAGE_GUILD`;
         } else {
             reason = 'Prova a controllare se ho tutti i permessi necessari'+
@@ -64,7 +64,7 @@ module.exports = {
                 
                 const kickLog = kickLogCreate(newMember);
 
-                // TODO
+                // TODO renderlo più bello?
                 if(newMember == null) return logChannel.send('member already left');
 
                 setTimeout(() => {

@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const { kickLogCreate, dmErrorCreate, setupEnd } = require('../global/global-var');
+const { warningEmoji, kickLogCreate, dmErrorCreate, setupEnd } = require('../global/global-var');
 
 module.exports = {
     name: 'guildMemberAdd',
@@ -45,7 +45,7 @@ module.exports = {
                 mandRole.forEach(find => {
                     if(!member.roles.cache.some(r => r.id === find.id)) {
                         member.send({embeds: [kickEmbed]})
-                            .catch(() => logChannel.send({embeds: [dmErrorEmbed2]}));   // Causes issues (multiple logs)
+                            .catch(() => logChannel.send({embeds: [dmErrorEmbed2]}));   //FIXME Causes issues (multiple logs)
                         member.kick('User failed to pick mandatory roles.');
                     }
                 })

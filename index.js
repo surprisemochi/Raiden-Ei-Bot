@@ -1,6 +1,6 @@
 /*
 *   Raiden Ei Bot
-*   Developed with love by Sofia (surprisemochi#1708)
+*   Developed with love by surprisemochi#1708
 */
 
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
