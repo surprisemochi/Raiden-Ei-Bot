@@ -1,5 +1,5 @@
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
-const { warningEmoji, kickLogCreate, dmErrorCreate, setupEnd } = require('../global/global-var');
+const { warningEmoji, hasTargetRole, kickLogCreate, dmErrorCreate, setupEnd } = require('../global/global-var');
 
 module.exports = {
     name: 'guildMemberUpdate',
@@ -33,6 +33,7 @@ module.exports = {
             const joinTime = Date.now() - newMember.joinedAt;
             if(joinTime <= 900000) {
 
+                //hasTargetRole = true;   //FIXME Assignment to constant variable.
                 console.log(`Targeted role found for ${newMember.user.tag}.`);
 
                 //sends dm and then kicks after some time.
@@ -52,9 +53,12 @@ module.exports = {
                     .setFooter({text: `Kick automatico da ${newMember.guild.name} tra: ${kickTime/60000} ${min}`})
 
                 const dmErrorEmbed = dmErrorCreate(newMember);
-
-                newMember.send({embeds: [kickNoticeEmbed]})
-                    .catch(() => logChannel.send({embeds: [dmErrorEmbed]}));
+                
+                try {
+                    newMember.send({embeds: [kickNoticeEmbed]});
+                } catch (error) {
+                    logChannel.send({embeds: [dmErrorEmbed]});
+                }
 
                 const kickEmbed = new EmbedBuilder()
                     .setColor('Red')
@@ -64,12 +68,13 @@ module.exports = {
                 
                 const kickLog = kickLogCreate(newMember);
 
-                // TODO renderlo più bello?
-                if(newMember == null) return logChannel.send('member already left');
-
                 setTimeout(() => {
-                    newMember.send({embeds: [kickEmbed]})
-                        .catch(() => logChannel.send({embeds: [dmErrorEmbed]}));
+                    if (!newMember.kickable) return logChannel.send('member already left');
+                    try {
+                        newMember.send({embeds: [kickEmbed]})
+                    } catch (error) {
+                        logChannel.send({embeds: [dmErrorEmbed]});
+                    }
                     newMember.kick();
                     logChannel.send({embeds: [kickLog]});
                     console.log(`${newMember.user.tag} was kicked because they had the targeted role ${targetRole}`);

@@ -47,6 +47,7 @@ globalThis.mandRole = new Array();
 globalThis.kickTime = 60000;
 globalThis.rolesLink;
 globalThis.kickList = new Array();
+let hasTargetRole = false;  //FIXME
 
 const successEmoji = '<a:bot_success:522080656604397591>';
 const alertEmoji = '<a:bot_alert:997448756398129222>';
@@ -133,6 +134,6 @@ function dmErrorCreate(member) {
 }
 
 module.exports = {
-    setupEnd, botVersion, raidenColour, successEmoji, alertEmoji, warningEmoji, typingEmoji,
+    setupEnd, botVersion, raidenColour, successEmoji, alertEmoji, warningEmoji, typingEmoji, hasTargetRole,
     help_embed, setupSetStatus, kickLogCreate, dmErrorCreate
 };

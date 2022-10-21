@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const { warningEmoji, kickLogCreate, dmErrorCreate, setupEnd } = require('../global/global-var');
+const { warningEmoji, hasTargetRole, kickLogCreate, dmErrorCreate, setupEnd } = require('../global/global-var');
 
 module.exports = {
     name: 'guildMemberAdd',
@@ -18,21 +18,28 @@ module.exports = {
             }
         })
 
+        // Ignores event if the user has picked the targeted role.
+        if (hasTargetRole) return console.log(`Ignored guildMemberAdd event because ${member.user.tag} has picked the targeted role`);
+
         // If the member does not have one of the mandatory roles: send notice.
         if(hasRole == false) {
             
+            // const rolesChannel = rolesLink || 'discord.com'; //TODO
             const mandRolesEmbed = new EmbedBuilder()
                 .setColor('Yellow')
                 .setTitle(`${warningEmoji} Non hai selezionato i ruoli obbligatori!`)
-                .setDescription(`Per selezionare i ruoli recati nell'apposito [canale](https://discord.com/channels/835975262172479518/836158256975314954/998684871352406026).`)    // TODO: make it non guild based
+                // .setDescription(`Per selezionare i ruoli recati nell'apposito [canale](${rolesChannel}).`)
                 .setTimestamp()
                 .setFooter({text: `Kick automatico da ${member.guild.name} tra: ${kickTime/60000} min`})
 
             const dmErrorEmbed2 = dmErrorCreate(member);
 
             setTimeout(() => {
-                member.send({embeds: [mandRolesEmbed]})
-                    .catch(() => logChannel.send({embeds: [dmErrorEmbed2]}));
+                try {
+                    member.send({embeds: [mandRolesEmbed]});
+                } catch (error) {
+                    logChannel.send({embeds: [dmErrorEmbed2]});
+                }
             }, kickTime/2);
 
             const kickEmbed = new EmbedBuilder()
@@ -42,15 +49,24 @@ module.exports = {
                     .setTimestamp()
 
             setTimeout(() => {
+                if (!newMember.kickable) return logChannel.send('member already left');
+                let canKick = true;
                 mandRole.forEach(find => {
-                    if(!member.roles.cache.some(r => r.id === find.id)) {
-                        member.send({embeds: [kickEmbed]})
-                            .catch(() => logChannel.send({embeds: [dmErrorEmbed2]}));   //FIXME Causes issues (multiple logs)
-                        member.kick('User failed to pick mandatory roles.');
+                    if(member.roles.cache.some(r => r.id === find.id)) {
+                        canKick = false;
                     }
                 })
-                const kickLog2 = kickLogCreate(member);
-                return logChannel.send({embeds: [kickLog2]});
+                if (canKick) {
+                    try {
+                        member.send({embeds: [kickEmbed]});
+                    } catch (error) {
+                        logChannel.send({embeds: [dmErrorEmbed2]});
+                    }
+                    member.kick('User failed to pick mandatory roles.');
+                    const kickLog2 = kickLogCreate(member);
+                    return logChannel.send({embeds: [kickLog2]});
+                }
+                console.log(`${member.user.tag} took the mandatory roles.`);
             }, kickTime);
         }
     }
